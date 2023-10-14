@@ -1,0 +1,52 @@
+Layout of Meeting:
+Last Week, I am supposed to do A B C D...
+So far, I have achieved ...
+But stuck at ...
+
+Implemented au250,vcu1525
+Still processing au280、github push
+
+Difference and Reference of au250 and vcu1525 to au280. Configuration Reference of tcl and v block design towards au280.
+
+Result Oriented and Methodology Driven Out Outcomes. Progress Outlined! 
+
+Willingness to Explore Integration Further.
+
+·························
+Vivado-RISCV_V5: 
+Version of Adding ignore_ports.tcl but causing crashing of other ports.
+
+V4:
+Implemented Rocket64b1 but same problems of crashing of other ports. 
+
+V6: 
+Refreshing Workstation with backup but crashing other ports as well.
+
+
+Tcl, Xdc and V files to be reviewed. 
+
+https://support.xilinx.com/s/article/56354?language=en_US
+
+https://www.xilinx.com/products/intellectual-property/ultrascale_transceivers_wizard.html#documentation
+
+https://docs.xilinx.com/r/en-US/ds962-u200-u250/Network-Interfaces
+
+https://docs.xilinx.com/r/en-US/ds963-u280/Network-Interfaces
+
+https://docs.xilinx.com/r/en-US/ug1301-getting-started-guide-alveo-accelerator-cards/Minimum-System-Requirements
+
+
+A drawing a high level block diagrams of RISC-V and NetFPGA-Plus 
+
+All the outputs of 100G NetFPGA should be kept as itself 
+
+Replace 10G 
+
+
+
+
+
+
+
+
+

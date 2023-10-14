@@ -1,0 +1,9 @@
+Week 7 Meeting:
+
+Induvidually Included RISC-V Configuration Diagram;
+Firstly Report RISC-V Layout on Slide 1,
+Then, NetFPGA-Plus itself on Slide 2,
+Finally, combine then on Slide 3;
+
+Whether RISC-V as solely core or implement something more
+In Discussion Toungh, Focus on Next Step~
