@@ -17,7 +17,7 @@ A repository for summer internship designing a SmartNIC combining RISCV and NetF
 On-chip FPGA resources are ideal regarding the demands of a SmartNIC(Smart Network Interface Card) nowadays. The OpenNIC project’s design is organized along the lines of the “shell” and “role,” concepts first introduced in Project Catapult by Microsoft Research.<sup>[[1]](#1)</sup>  The NIC shell contains the RTL sources and design files for targetting several of the AMD Xilinx Alveo boards featuring UltraScale+ FPGAs. The shell delivers NIC implementation supporting up to four PCI-e physical functions (PFs) and two 100Gbps Ethernet ports.<sup>[[2]](#2)</sup> For host PCIe PF interfaces, a standard set of hardware IP blocks are provided - the CMAC and QDMA subsystems respectively - and a Linux kernel driver for the NIC shell.
 
 A block diagram of the OpenNIC system appears below:
-![image](https://github.com/MrJimbo2002/Summer23-SmartNIC/blob/main/Open_NIC_Shell.png)
+![image](https://github.com/MrJimbo2002/Summer23_SmartNIC/blob/main/Open_NIC_Shell.png)
 #### <p align="center">OpenNIC Block Diagram </p>
 
 The CMAC Ethernet Subsystem implements a 100Gbps Ethernet MAC/PHY interface and moves data between the external Ethernet connection and FPGA’s programmable logic fabric via the H2C (Host-to-Card) and C2H (Card-to-Host) engines.     
@@ -84,7 +84,7 @@ Apart from the reprogrammable development board, there are reference sample cour
 
 The modular structure for all reference projects in the NetFPGA platform is a pipeline at which each stage is a separate module. The block diagram of the pipeline is shown below. 
 
-![image](https://github.com/MrJimbo2002/Summer23-SmartNIC/blob/main/NF_ReadME_Reference/NetFPGA_Block%20Diagram.png)
+![image](https://github.com/MrJimbo2002/Summer23_SmartNIC/blob/main/NF_ReadME_Reference/NetFPGA_Block%20Diagram.png)
 
 The CMAC subsystem on Xilinx open-nic-shell sends the received packet to the input arbiter module via nf_mac_attachment. The input arbiter has three **input** interfaces: two from the CMAC subsystem and one from the QDMA subsystem, both on open-nic-shell.  
 Each input to the arbiter connects to an input queue, which is a small fall-through FIFO. The simple arbiter rotates between all the input queues in a round-robin manner, each time selecting a non-empty queue and writing one full packet from it to the next stage in the data path, which is the **output port lookup module**.<sup>[[5]](#5)</sup>
@@ -117,7 +117,7 @@ An end-user-supplied script, run.py, writes out two sets of AXI Stream files: th
 
 For simulation test verification, under `~/NetFPGA-PLUS/tools/scripts`, type the corresponding major and minor arguments, taking `./nf_test.py sim --major loopback --minor minsize` as the example below:
 
-![image](https://github.com/MrJimbo2002/Summer23-SmartNIC/blob/main/NF_ReadME_Reference/NF_Plus_SimulationTest_2.png)
+![image](https://github.com/MrJimbo2002/Summer23_SmartNIC/blob/main/NF_ReadME_Reference/NF_Plus_Simulation_Test_2.png)
 
 N.B of Barrier Synchronization: Instead of specifying times for packet and register operations, the infrastructure uses a barrier statement for synchronization. The barrier blocks until all expected packets arrive, or it times out, causing the test to fail. This ensures that register operations occur at the correct time relative to the packet operations.<sup>[[6]](#6)</sup>
 
@@ -150,7 +150,7 @@ Hence, the summer intern project intends to discover the prospective value of RI
 
 #### Discussion of various open-source projects
 
-A very comprehensive comparison of various open-source RISC-V core projects was summarized in [Excel Spreadsheet.](https://github.com/MrJimbo2002/Summer23-SmartNIC/blob/main/RISCV_ReadME_Reference/Tabular_Summary.xlsx)
+A very comprehensive comparison of various open-source RISC-V core projects was summarized in [Excel Spreadsheet.](https://github.com/MrJimbo2002/Summer23_SmartNIC/blob/main/RISCV_ReadME_Reference/Tabular_Summary.xlsx)
 
 Ibex, OpenTitan and Berkeley Out-of-Order Machine (BOOM) are not directly concentrated onto FPGA targets and so were put aside at that moment.
 
@@ -206,9 +206,9 @@ BOARD_PART  ?= xilinx.com:au280:part0:1.2
 XILINX_PART ?= xcu280-fsvh2892-2L-e
 ```
 
-Then, in the same folder, there was an [error](https://github.com/MrJimbo2002/Summer23-SmartNIC/blob/main/RISCV_ReadME_Reference/VivadoRISCV_Version3_X1Y44.png) message pointing to module 'gtwizard_ultrascale_0', change the `CONFIG.CHANNEL_ENABLE` to `X0Y44`. Change the `C0_CLOCK_BOARD_INTERFACE` in instance `ddr4_0` with `sysclk0` from `riscv-2022.2.tcl`
+Then, in the same folder, there was an [error](https://github.com/MrJimbo2002/Summer23_SmartNIC/blob/main/RISCV_ReadME_Reference/VivadoRISCV_Version3_X1Y44.png) message pointing to module 'gtwizard_ultrascale_0', change the `CONFIG.CHANNEL_ENABLE` to `X0Y44`. Change the `C0_CLOCK_BOARD_INTERFACE` in instance `ddr4_0` with `sysclk0` from `riscv-2022.2.tcl`
   
-Moreover, according to memory core [faulse](https://github.com/MrJimbo2002/Summer23-SmartNIC/blob/main/RISCV_ReadME_Reference/VivadoRISCV_Version3_SLR.png) and [invalid pins](https://github.com/MrJimbo2002/Summer23-SmartNIC/blob/main/RISCV_ReadME_Reference/VivadoRISCV_Version3_Invalid%20Pin.png), carefully compare the official xdc constraint files and seek for any difference between au280 and au250 board. Pay extra attention to qsfp28 and ethernet submodules across all the files in the `vivado-risc-v/board` folder except `bootrom.dts`. 
+Moreover, according to memory core [faulse](https://github.com/MrJimbo2002/Summer23_SmartNIC/blob/main/RISCV_ReadME_Reference/VivadoRISCV_Version3_SLR.png) and [invalid pins](https://github.com/MrJimbo2002/Summer23_SmartNIC/blob/main/RISCV_ReadME_Reference/VivadoRISCV_Version3_Invalid%20Pin.png), carefully compare the official xdc constraint files and seek for any difference between au280 and au250 board. Pay extra attention to qsfp28 and ethernet submodules across all the files in the `vivado-risc-v/board` folder except `bootrom.dts`. 
 
 Taking the top module riscv_wrapper as the example, comment on the following scripts in the qsfp28 submodule definition from Line 42 to Line 54:
 ```
@@ -227,7 +227,7 @@ Similar procedures were conducted in the instantiation part from Line 171 to Lin
 
 The explicit Memory Interface Generator(MIG) from Alveo U280 DDR4 reflected the successful implementation of the **modified** Vivado-RISC-V project with Rocket Chip. The System Monitor remained at the standard mode. 
 
-![image](https://github.com/MrJimbo2002/Summer23-SmartNIC/blob/main/RISCV_ReadME_Reference/vivado-riscv_MIG_gui.png)
+![image](https://github.com/MrJimbo2002/Summer23_SmartNIC/blob/main/RISCV_ReadME_Reference/vivado-riscv_MIG_gui.png)
   
 Overall, the RISC-V core architecture could be smoothly integrated into our most updated Xilinx accelerator cards. Hence, it leads to an upcoming valuable exploration of how to make our NetFPGA-Plus networked system possess computational processing power like a CPU core. 
 
@@ -257,7 +257,7 @@ Then, taking the reference of [Untethered lowRISC RocketChip](https://www.cl.cam
 
 A revised high hierarchy block diagram of our integrated SmartNIC project is shown below: 
 
-![image](https://github.com/MrJimbo2002/Summer23-SmartNIC/blob/main/SmartNIC_Block_Diagram.png)  
+![image](https://github.com/MrJimbo2002/Summer23_SmartNIC/blob/main/SmartNIC_Block_Diagram.png)  
 
 ## Integration Part b:
 ### Run the image on the FPGA   
@@ -313,7 +313,7 @@ Finally, only select one set of clock wizard configurations and constraint sets 
 
 #### Discussion of Expected Outcome for Integrated SmartNIC 
 
-Due to the relatively limited internship duration length, system verification of complete Vivado engineering projects and further verification tests were left to be taken in the future. According to the designed high-level [block diagram](https://github.com/MrJimbo2002/Summer23-SmartNIC/blob/d291ca1c1d2442f8c6ed40dc79665e770341fc5b/README.md?plain=1#L260), the DRAM Memory on Alveo U280 connects between RISC-V processor core and NetFPGA-Plus data management plane. The 'CPU' core is likely to assign the card substantial computational capability and even serves as a data control plane in future verification. For example, the initial lookup module in NetFPGA-Plus could be upgraded to implement a more complicated lookup scheme not only based on the source port but also other parameters like destination port and packet size. The lookup table function demands a high degree of technical sophistication aided by the processor to comprehend a multitude of network protocols, ranging from the foundational TCP/IP suite to more specialized protocols. 
+Due to the relatively limited internship duration length, system verification of complete Vivado engineering projects and further verification tests were left to be taken in the future. According to the designed high-level [block diagram](https://github.com/MrJimbo2002/Summer23_SmartNIC/blob/b5b1376dfd347add6093f08ca3c1fb7f6c477971/README.md?plain=1#L260), the DRAM Memory on Alveo U280 connects between RISC-V processor core and NetFPGA-Plus data management plane. The 'CPU' core is likely to assign the card substantial computational capability and even serves as a data control plane in future verification. For example, the initial lookup module in NetFPGA-Plus could be upgraded to implement a more complicated lookup scheme not only based on the source port but also other parameters like destination port and packet size. The lookup table function demands a high degree of technical sophistication aided by the processor to comprehend a multitude of network protocols, ranging from the foundational TCP/IP suite to more specialized protocols. 
   
 Provided Ping tests and Transaction results are expected to generate **same order** latency, while the Iperf test is estimated to witness **orders of growth** in bandwidth measurement. Besides, the SmartNIC could insert additional high-level algorithms in need. From the hardware level, it tends to increase the executive efficiency of every network node and consequently, the entire networking system, breaking through prospective bottlenecks of network latency and data transmission rates.  
 
