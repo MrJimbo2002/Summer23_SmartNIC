@@ -1,6 +1,7 @@
 # Summer23-SmartNIC  
 
-A repository for summer internship designing a SmartNIC combining RISCV and NetFPGA
+A repository for summer internship designing a SmartNIC combining RISCV and NetFPGA @ Computer Infrastructure Group, Department of Engineering Science, University of Oxford
+Supervised by Professor [Noa Zilberman](https://eng.ox.ac.uk/people/noa-zilberman/)
   
 <ins>Internship Week 1 to Week 3</ins> 
 
